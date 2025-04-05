@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازی مار | Glass Morphism</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#7165e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="container">
+        <div class="game-header">
+            <h1>بازی مار</h1>
+            <div class="score-container">
+                <div class="score-box">
+                    <span class="score-label">امتیاز:</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="high-score-box">
+                    <span class="score-label">بیشترین امتیاز:</span>
+                    <span id="high-score">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="game-details">
+                <div class="game-controls">
+                    <button id="start-btn" class="btn"><i class="fas fa-play"></i> شروع</button>
+                    <button id="pause-btn" class="btn" disabled><i class="fas fa-pause"></i> مکث</button>
+                    <button id="restart-btn" class="btn"><i class="fas fa-redo"></i> شروع مجدد</button>
+                </div>
+                <div class="game-settings">
+                    <div class="setting">
+                        <label for="speed">سرعت:</label>
+                        <select id="speed">
+                            <option value="slow">آهسته</option>
+                            <option value="medium" selected>متوسط</option>
+                            <option value="fast">سریع</option>
+                        </select>
+                    </div>
+                    <div class="setting">
+                        <label for="walls">برخورد با دیوار:</label>
+                        <select id="walls">
+                            <option value="stop">پایان بازی</option>
+                            <option value="pass">عبور از دیوار</option>
+                        </select>
+                    </div>
+                    <div class="setting">
+                        <label for="special-food">میوه‌های ویژه:</label>
+                        <select id="special-food">
+                            <option value="on" selected>فعال</option>
+                            <option value="off">غیرفعال</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-board-container">
+                <canvas id="game-board"></canvas>
+                <div id="game-over" class="game-message hidden">
+                    <h2>بازی تمام شد!</h2>
+                    <p>امتیاز شما: <span id="final-score">0</span></p>
+                    <button id="play-again" class="btn"><i class="fas fa-play"></i> بازی مجدد</button>
+                </div>
+                <div id="game-paused" class="game-message hidden">
+                    <h2>بازی در حالت مکث</h2>
+                    <button id="resume" class="btn"><i class="fas fa-play"></i> ادامه بازی</button>
+                </div>
+                <div id="countdown" class="game-message hidden">
+                    <h2 id="countdown-number">3</h2>
+                </div>
+                <div id="player-info">
+                    <div class="active-powers hidden">
+                        <span>قدرت فعال: </span>
+                        <span id="active-power-name">هیچ</span>
+                        <div id="power-timer" class="power-timer"><div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-controls">
+                <button id="up-btn" class="control-btn"><i class="fas fa-arrow-up"></i></button>
+                <div class="horizontal-controls">
+                    <button id="left-btn" class="control-btn"><i class="fas fa-arrow-left"></i></button>
+                    <button id="right-btn" class="control-btn"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <button id="down-btn" class="control-btn"><i class="fas fa-arrow-down"></i></button>
+            </div>
+
+            <div class="controls-help">
+                <h3>کنترل‌ها:</h3>
+                <div class="controls-grid">
+                    <div class="control-key"><i class="fas fa-arrow-up"></i></div>
+                    <div class="control-desc">حرکت به بالا</div>
+                    
+                    <div class="control-key"><i class="fas fa-arrow-down"></i></div>
+                    <div class="control-desc">حرکت به پایین</div>
+                    
+                    <div class="control-key"><i class="fas fa-arrow-right"></i></div>
+                    <div class="control-desc">حرکت به راست</div>
+                    
+                    <div class="control-key"><i class="fas fa-arrow-left"></i></div>
+                    <div class="control-desc">حرکت به چپ</div>
+                    
+                    <div class="control-key">P</div>
+                    <div class="control-desc">توقف بازی</div>
+                </div>
+            </div>
+
+            <div class="foods-guide">
+                <h3>راهنمای میوه‌ها:</h3>
+                <div class="foods-grid">
+                    <div class="food-icon apple"></div>
+                    <div class="food-desc">سیب: ۱۰ امتیاز</div>
+                    
+                    <div class="food-icon banana"></div>
+                    <div class="food-desc">موز: ۲۰ امتیاز</div>
+                    
+                    <div class="food-icon blueberry"></div>
+                    <div class="food-desc">بلوبری: افزایش سرعت (۱۵ ثانیه)</div>
+                    
+                    <div class="food-icon orange"></div>
+                    <div class="food-desc">پرتقال: محافظ برخورد (۲۰ ثانیه)</div>
+                    
+                    <div class="food-icon golden"></div>
+                    <div class="food-desc">میوه طلایی: ۵۰ امتیاز</div>
+                    
+                    <div class="food-icon special"></div>
+                    <div class="food-desc">میوه ویژه: قدرت تصادفی</div>
+                </div>
+            </div>
+
+            <div class="install-prompt hidden">
+                <p>این بازی را به صفحه اصلی اضافه کنید:</p>
+                <button id="install-btn" class="btn"><i class="fas fa-download"></i> نصب بازی</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // ثبت Service Worker برای PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+
+        // متغیر برای نگهداری رویداد نصب
+        let deferredPrompt;
+        const installPrompt = document.querySelector('.install-prompt');
+        const installBtn = document.getElementById('install-btn');
+
+        // وقتی رویداد beforeinstallprompt فراخوانی شد
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // رویداد پیش‌فرض را متوقف کنید
+            e.preventDefault();
+            // رویداد را ذخیره کنید تا بعداً استفاده شود
+            deferredPrompt = e;
+            // نمایش عنصر نصب
+            installPrompt.classList.remove('hidden');
+        });
+
+        // رویداد کلیک دکمه نصب
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                // نمایش پنجره نصب
+                deferredPrompt.prompt();
+                // منتظر انتخاب کاربر باشید
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                // بعد از استفاده، متغیر را پاک کنید
+                deferredPrompt = null;
+                // پنهان کردن دکمه نصب
+                installPrompt.classList.add('hidden');
+            }
+        });
+
+        // بررسی اینکه آیا اپلیکیشن قبلاً نصب شده است
+        window.addEventListener('appinstalled', () => {
+            // پنهان کردن دکمه نصب
+            installPrompt.classList.add('hidden');
+            console.log('PWA was installed');
+        });
+    </script>
+</body>
+</html> 
