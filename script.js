@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             points: 10, 
             probability: 45,
             effect: null,
-            image: 'images/apple.png'
+            image: './images/apple.png'
         },
         BANANA: { 
             type: 'banana', 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             points: 20, 
             probability: 25,
             effect: null,
-            image: 'images/banana.png'
+            image: './images/banana.png'
         },
         BLUEBERRY: { 
             type: 'blueberry', 
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             points: 15, 
             probability: 10,
             effect: activateSpeedBoost,
-            image: 'images/blueberry.png'
+            image: './images/blueberry.png'
         },
         ORANGE: { 
             type: 'orange', 
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             points: 15, 
             probability: 10,
             effect: activateWallShield,
-            image: 'images/orange.png'
+            image: './images/orange.png'
         },
         GOLDEN: { 
             type: 'golden', 
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             points: 50, 
             probability: 5,
             effect: null,
-            image: 'images/golden-apple.png'
+            image: './images/golden-apple.png'
         },
         SPECIAL: { 
             type: 'special', 
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             points: 30, 
             probability: 5,
             effect: activateRandomPower,
-            image: 'images/special-fruit.png'
+            image: './images/special-fruit.png'
         }
     };
 

@@ -2,7 +2,7 @@
   "name": "بازی مار",
   "short_name": "مار",
   "description": "بازی مار با طراحی مدرن گلس مورفیسم و امکانات متنوع",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#7165e3",
   "theme_color": "#7165e3",

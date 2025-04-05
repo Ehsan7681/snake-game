@@ -1,16 +1,16 @@
 const CACHE_NAME = 'snake-game-v1';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/manifest.json',
-  '/images/apple.png',
-  '/images/banana.png',
-  '/images/blueberry.png',
-  '/images/orange.png',
-  '/images/golden-apple.png',
-  '/images/special-fruit.png'
+  './',
+  './index.html',
+  './style.css',
+  './script.js',
+  './manifest.json',
+  './images/apple.png',
+  './images/banana.png',
+  './images/blueberry.png',
+  './images/orange.png',
+  './images/golden-apple.png',
+  './images/special-fruit.png'
 ];
 
 // نصب Service Worker و ذخیره فایل‌ها در کش
