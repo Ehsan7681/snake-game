@@ -129,14 +129,30 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupCanvas() {
         // محاسبه اندازه مناسب برای کنواس
         const container = document.querySelector('.game-board-container');
+        
+        // بررسی آیا دستگاه موبایل است (عرض صفحه کمتر از 768px)
+        const isMobile = window.innerWidth <= 768;
+        
+        // تنظیم اندازه container برای موبایل - کشیده‌تر کردن صفحه بازی
+        if (isMobile) {
+            container.style.aspectRatio = "2/3"; // نسبت ابعاد کشیده‌تر برای موبایل
+            container.style.maxWidth = "100%";   // عرض کامل
+        } else {
+            container.style.aspectRatio = "1";   // نسبت ابعاد مربعی برای دسکتاپ
+        }
+        
         const containerWidth = container.offsetWidth;
+        const containerHeight = container.offsetHeight;
         
         // اطمینان از اینکه تعداد سلول‌ها مضرب عدد 2 است
-        const cellCount = Math.floor(containerWidth / gridSize);
-        const canvasSize = cellCount * gridSize;
+        const cellCountX = Math.floor(containerWidth / gridSize);
+        const cellCountY = Math.floor(containerHeight / gridSize);
         
-        canvas.width = canvasSize;
-        canvas.height = canvasSize;
+        const canvasWidth = cellCountX * gridSize;
+        const canvasHeight = cellCountY * gridSize;
+        
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
         
         // ایجاد گرادیان برای مار
         snakeGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -254,11 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // بازنشانی بازی
     function resetGame() {
         // ایجاد مار در وسط صفحه
-        const centerPos = Math.floor((canvas.width / gridSize) / 2) * gridSize;
+        const centerX = Math.floor((canvas.width / gridSize) / 2) * gridSize;
+        const centerY = Math.floor((canvas.height / gridSize) / 2) * gridSize;
+        
         snake = [
-            { x: centerPos, y: centerPos },
-            { x: centerPos - gridSize, y: centerPos },
-            { x: centerPos - (2 * gridSize), y: centerPos }
+            { x: centerX, y: centerY },
+            { x: centerX - gridSize, y: centerY },
+            { x: centerX - (2 * gridSize), y: centerY }
         ];
         
         direction = 'right';
@@ -311,10 +329,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let newFood;
         
         while (!validPosition) {
-            const maxPos = (canvas.width / gridSize) - 1;
+            const maxX = (canvas.width / gridSize) - 1;
+            const maxY = (canvas.height / gridSize) - 1;
             newFood = {
-                x: Math.floor(Math.random() * maxPos) * gridSize,
-                y: Math.floor(Math.random() * maxPos) * gridSize,
+                x: Math.floor(Math.random() * maxX) * gridSize,
+                y: Math.floor(Math.random() * maxY) * gridSize,
                 type: selectFoodType()
             };
             

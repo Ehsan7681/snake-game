@@ -256,44 +256,9 @@ select:focus {
     display: none;
 }
 
-/* کنترل‌های موبایل */
+/* کنترل‌های موبایل - این بخش دیگر استفاده نمی‌شود */
 .mobile-controls {
     display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    gap: 10px;
-    max-width: 250px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.horizontal-controls {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px;
-}
-
-.control-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid var(--glass-border);
-    color: white;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-}
-
-.control-btn:active {
-    transform: scale(0.9);
-    background: rgba(255, 255, 255, 0.3);
 }
 
 .controls-help {
@@ -472,43 +437,47 @@ select:focus {
     to { transform: translateY(0); opacity: 1; }
 }
 
+/* تنظیمات پاسخگو برای موبایل */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
+        padding: 15px;
     }
     
-    .game-details {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .game-controls, .game-settings {
-        justify-content: center;
-    }
-    
-    .score-container {
-        flex-direction: column;
-        gap: 15px;
+    .game-header h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
     }
     
     .score-box, .high-score-box {
+        padding: 10px 15px;
+    }
+    
+    .game-details {
         justify-content: center;
     }
     
-    /* نمایش کنترل‌های لمسی در موبایل */
-    .mobile-controls {
-        display: flex;
+    .game-board-container {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 15px;
     }
     
-    /* مخفی کردن راهنمای کنترل‌ها در موبایل */
-    .controls-help {
-        display: none;
+    .controls-help, .foods-guide {
+        display: none; /* مخفی کردن راهنماها در حالت موبایل برای فضای بیشتر */
+    }
+    
+    .game-message h2 {
+        font-size: 1.8rem;
     }
     
     #countdown-number {
-        font-size: 5rem;
+        font-size: 6rem;
     }
-} 
+    
+    .install-prompt {
+        margin-top: 15px;
+    }
+}
 
 /* برای بهینه‌سازی دستگاه‌های با صفحه کوچک مانند موبایل */
 @media (max-width: 480px) {
